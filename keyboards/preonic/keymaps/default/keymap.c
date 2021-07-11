@@ -166,8 +166,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+#ifdef AUDIO_ENABLE
+    float foo_song[][2] = SONG(PREONIC_SOUND);
+#endif
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+
+  
+
   switch (keycode) {
+        case KC_M:
+          #ifdef AUDIO_ENABLE
+          PLAY_SONG(foo_song);
+          #endif
+      
         case QWERTY:
           if (record->event.pressed) {
             set_single_persistent_default_layer(_QWERTY);

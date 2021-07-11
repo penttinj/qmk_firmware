@@ -1,6 +1,7 @@
 #pragma once
 
 #ifdef AUDIO_ENABLE
+    #define FOO HD_NOTE(_C8), HD_NOTE(_D3), HD_NOTE(_C6)
     #define STARTUP_SONG SONG(PREONIC_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
 

@@ -2,19 +2,12 @@
 
 #include QMK_KEYBOARD_H
 
-enum preonic_layers {
-  _QWERTY,
-  _COLEMAK,
-  _DVORAK,
-  _LOWER,
-  _RAISE,
-  _ADJUST
-};
+
+
 
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
+  NORDIC,
   LOWER,
   RAISE,
   BACKLIT
@@ -63,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
 	KC_LCTL, KC_LGUI, KC_LALT, MO(2), KC_SPC, KC_ENT, MO(3), KC_RALT, KC_MINS, KC_EQL
 	),
-/* Raise
+/* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -83,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(4), KC_TRNS, KC_NO, KC_NO
 	),
-/* Lower
+/* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -119,9 +112,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[4] = LAYOUT_preonic_2x2u(
 		KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 		KC_NO, RESET, DEBUG, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-		KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, DF(0), DF(1), KC_NO, KC_NO, KC_NO,
-		KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+		KC_NO, AU_ON, AU_OFF, KC_NO, KC_NO, KC_NO, KC_NO, DF(0), DF(1), KC_NO, KC_NO, KC_NO,
+		KC_NO, KC_NO, KC_NO, KC_NO, BL_OFF, BL_STEP, BL_BRTG, RGB_MOD, KC_NO, KC_NO, KC_NO, KC_NO,
 		KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO
 		)
 };
 
+
+
+/* Use this function to do stuff based on what key was pressed */
+/* bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+      case KC_M:
+        #ifdef AUDIO_ENABLE
+        PLAY_SONG(foo_song);
+        #endif
+      }
+    return true;
+}; */
+
+#ifdef AUDIO_ENABLE
+    float foo_song[][2] = SONG(PREONIC_SOUND);
+#endif
+
+// Gets called on powerup atleast
+void dip_update(uint8_t index, bool active) {
+  switch (index) {
+    case 0:
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(foo_song);
+        #endif
+      break;
+   }
+}
