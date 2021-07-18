@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-    float foo_song[][2] = SONG(NOCTURNE_OP_9_NO_1);
+    float foo_song[][2] = SONG(IMPERIAL_MARCH);
 #endif
 
 /* Use this function to do stuff based on what key was pressed */
