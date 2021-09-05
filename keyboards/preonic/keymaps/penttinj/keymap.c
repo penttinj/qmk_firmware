@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_NO, KC_NO, KC_NO, KC_END, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MPLY, KC_F12,
 	KC_CAPS, KC_HOME, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 	KC_TRNS, KC_NUBS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PGDN, KC_PGUP, KC_TRNS,
-	KC_TRNS, KC_TRNS, KC_TRNS, MO(4), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU
+	KC_TRNS, KC_TRNS, KC_TRNS, MO(4), KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_VOLU
 	),
 /* Adjust
  * ,-----------------------------------------------------------------------------------.
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-    float foo_song[][2] = SONG(IMPERIAL_MARCH);
+    float foo_song[][2] = SONG(PREONIC_SOUND);
 #endif
 
 /* Use this function to do stuff based on what key was pressed */
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }; */
 
 
-// Gets called on powerup atleast
+// Function gets called on powerup atleast
 void dip_update(uint8_t index, bool active) {
   switch (index) {
     case 0:
