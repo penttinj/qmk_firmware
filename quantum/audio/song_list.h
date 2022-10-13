@@ -20,11 +20,9 @@
 
 #include "musical_notes.h"
 
-#if __GNUC__ > 5  // don't use for older gcc compilers since check isn't supported.
-#    if __has_include("user_song_list.h")
-#        include "user_song_list.h"
-#    endif  // if file exists
-#endif      // __GNUC__
+#if __has_include("user_song_list.h")
+#    include "user_song_list.h"
+#endif // if file exists
 
 #define NO_SOUND
 
@@ -298,8 +296,17 @@
     Q__NOTE(_B4 ), \
     HD_NOTE(_C5 ), \
 
-#define TERMINAL_SOUND \
-    E__NOTE(_C5 )
+/* Title:            Hymn Risen
+ * Author/Composer:  Terrance Andrew Davis
+ * License:          Public Domain
+ */
+#define TOS_HYMN_RISEN H__NOTE(_D5), H__NOTE(_E5), HD_NOTE(_F5), HD_NOTE(_F5), H__NOTE(_F5), HD_NOTE(_D5), E__NOTE(_E5), E__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_D5), Q__NOTE(_D5), H__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_G5), Q__NOTE(_F5), H__NOTE(_D5), H__NOTE(_E5), HD_NOTE(_F5), HD_NOTE(_F5), H__NOTE(_F5), HD_NOTE(_D5), E__NOTE(_E5), E__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_D5), Q__NOTE(_D5), H__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_G5), Q__NOTE(_F5), H__NOTE(_D5), H__NOTE(_C5), W__NOTE(_D5), W__NOTE(_E5), Q__NOTE(_A4), H__NOTE(_A4), Q__NOTE(_E5), Q__NOTE(_E5), Q__NOTE(_F5), Q__NOTE(_E5), Q__NOTE(_D5), Q__NOTE(_G5), Q__NOTE(_B4), Q__NOTE(_D5), Q__NOTE(_C5), M__NOTE(_F5, 80), H__NOTE(_D5), H__NOTE(_C5), W__NOTE(_D5), W__NOTE(_E5), Q__NOTE(_A4), H__NOTE(_A4), Q__NOTE(_E5), Q__NOTE(_E5), Q__NOTE(_F5), Q__NOTE(_E5), Q__NOTE(_D5), Q__NOTE(_G5), Q__NOTE(_B4), Q__NOTE(_D5), Q__NOTE(_C5), M__NOTE(_F5, 80)
+
+/* Removed sounds
+ +   This list is here solely for compatibility, so that removed songs don't just break things
+ *   If you think that any of these songs were wrongfully removed, let us know and provide
+ *   proof of permission to use them, or public domain status.
+ */
 
 #define OVERWATCH_THEME \
     HD_NOTE(_A4 ), \
