@@ -21,27 +21,10 @@ enum preonic_keycodes {
 };
 
 enum custom_keycodes {
-	L_PAREN = SAFE_RANGE,
-	R_PAREN,
-	L_BRACKET,
-	R_BRACKET,
-	L_CURLY,
-	R_CURLY
+	WOMBO = SAFE_RANGE,
+	COMBO,
 };
 
-//const key_override_t eight_bracket_key_override = ko_make_basic(MOD_MASK_CTRL, KC_8, RALT(KC_8)); 
-//const key_override_t nine_bracket_key_override = ko_make_basic(MOD_MASK_CTRL, KC_9, RALT(KC_9));
-const key_override_t eight_bracket_key_override = ko_make_with_layers_negmods_and_options(MOD_MASK_CTRL, KC_8, RALT(KC_8), ~0, MOD_MASK_SHIFT, ko_option_no_reregister_trigger);
-const key_override_t nine_bracket_key_override = ko_make_with_layers_negmods_and_options(MOD_MASK_CTRL, KC_9, RALT(KC_9), ~0, MOD_MASK_SHIFT, ko_option_no_reregister_trigger);
-const key_override_t eight_curly_override = ko_make_basic(MOD_MASK_CS, KC_8, RALT(KC_7));
-const key_override_t nine_curly_override = ko_make_basic(MOD_MASK_CS, KC_9, RALT(KC_0));
-const key_override_t** key_overrides = (const key_override_t*[]){
-    &eight_bracket_key_override,
-	&nine_bracket_key_override,
-	&eight_curly_override,
-	&nine_curly_override,
-    NULL
-};
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty "Programming"
@@ -99,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 	[_LOWER] = LAYOUT_preonic_2x2u(
-	KC_GRV, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSCR, KC_DEL,
+	KC_GRV, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, WOMBO, COMBO, KC_PSCR, KC_DEL,
 	KC_NO, KC_NO, KC_NO, KC_END, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LBRC,
 	KC_NO, KC_HOME, KC_NO, KC_NO, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_SCLN, KC_QUOT,
 	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS,
@@ -120,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 	[_RAISE] = LAYOUT_preonic_2x2u(
 	KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
-	KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_NO, KC_NO, L_CURLY, R_CURLY, KC_NO, KC_MPLY, KC_F12,
-	KC_CAPS, KC_F5, KC_F6, KC_F7, KC_F8, KC_NO, KC_NO, L_PAREN, R_PAREN, KC_NO, KC_NO, KC_NO,
-	KC_TRNS, KC_F9, KC_F10, KC_F11, KC_F12, KC_NO, KC_AUDIO_MUTE, L_BRACKET, R_BRACKET, KC_PGDN, KC_PGUP, KC_TRNS,
+	KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MPLY, KC_F12,
+	KC_CAPS, KC_F5, KC_F6, KC_F7, KC_F8, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+	KC_TRNS, KC_F9, KC_F10, KC_F11, KC_F12, KC_NO, KC_AUDIO_MUTE, KC_NO, KC_NO, KC_PGDN, KC_PGUP, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS, MO(_ADJUST), KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_RCTL
 	),
 /* Adjust
@@ -156,48 +139,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Use this function to do stuff based on what key was pressed */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   	switch (keycode) {
-		case L_CURLY:
-			if (record->event.pressed){
-				SEND_STRING(SS_RALT("7"));
-			}
-			break;
-		case R_CURLY:
-			if (record->event.pressed){
-				SEND_STRING(SS_RALT("0"));
-			}
-			break;
-		case L_PAREN:
-			if (record->event.pressed){
-				SEND_STRING(SS_LSFT("8"));
-			}
-			break;
-		case R_PAREN:
-			if (record->event.pressed){
-				SEND_STRING(SS_LSFT("9"));
-			}
-			break;
-		case L_BRACKET:
-			if (record->event.pressed){
-				SEND_STRING(SS_RALT("8"));
-			}
-			break;
-		case R_BRACKET:
-			if (record->event.pressed){
-				SEND_STRING(SS_RALT("9"));
-			}
-			break;
-		/*
-		case KC_8:
+		case WOMBO:
 			if (record->event.pressed) {
 				const uint8_t mods = get_mods();
 				if (mods && MOD_MASK_SHIFT) {
 					del_mods(MOD_MASK_SHIFT);
-					SEND_STRING(SS_LSFT("1"));
+					SEND_STRING(SS_RALT("7"));
 					set_mods(mods);
+				} else {
+					SEND_STRING(SS_RALT("8"));
 				}
 			}
 			break;
-		*/
+		case COMBO:
+			if (record->event.pressed) {
+				const uint8_t mods = get_mods();
+				if (mods && MOD_MASK_SHIFT) {
+					del_mods(MOD_MASK_SHIFT);
+					SEND_STRING(SS_RALT("0"));
+					set_mods(mods);
+				} else {
+					SEND_STRING(SS_RALT("9"));
+				}
+			}
+			break;
     	case DF(_QWERTY):
 			if(record->event.pressed) {
         		#ifdef AUDIO_ENABLE
@@ -222,7 +187,7 @@ void dip_update(uint8_t index, bool active) {
   switch (index) {
     case 0:
         #ifdef AUDIO_ENABLE
-          PLAY_SONG(startup_sound);
+            PLAY_SONG(nordic_sound);
         #endif
       break;
    }
