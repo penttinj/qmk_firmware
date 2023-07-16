@@ -6,15 +6,13 @@
 
 enum preonic_layers {
   _QWERTY,	// 0
-  _NORDIC,	// 1
-  _LOWER,	// 2
-  _RAISE,	// 3
-  _ADJUST	// 4
+  _LOWER,	// 1
+  _RAISE,	// 2
+  _ADJUST	// 3
 };
 
 enum preonic_keycodes {
   QWERTY,
-  NORDIC,
   LOWER,
   RAISE,
   BACKLIT
@@ -48,26 +46,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_LCTL, KC_LALT, KC_LGUI, MO(_LOWER),      KC_SPC    ,       KC_ENT    ,    MO(_RAISE),   KC_RALT,KC_NUHS, KC_MINS
 	),
 
-/* Qwerty "Nordic"
- * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  Å   |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   Ö  |  Ä   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
- * `-----------------------------------------------------------------------------------'
- */
-	[_NORDIC] = LAYOUT_preonic_2x2u(
-	KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
-	KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC,
-	KC_NUBS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
-	KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-	KC_LCTL, KC_LALT, KC_LGUI, MO(_LOWER), KC_SPC, KC_ENT, MO(_RAISE), KC_RALT, KC_MINS, KC_EQL
-	),
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
@@ -133,7 +111,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
     float startup_sound[][2] = SONG(PREONIC_SOUND);
 	float qwerty_sound[][2] = SONG(NUM_LOCK_OFF_SOUND);
-	float nordic_sound[][2] = SONG(NUM_LOCK_ON_SOUND);
 #endif
 
 /* Use this function to do stuff based on what key was pressed */
@@ -169,13 +146,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         			PLAY_SONG(qwerty_sound);
         		#endif
 		  	}
-			break;
-		case DF(_NORDIC):
-			if(record->event.pressed) {
-        		#ifdef AUDIO_ENABLE
-        			PLAY_SONG(nordic_sound);
-        		#endif
-			}
 			break;
     }
     return true;
